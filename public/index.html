@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Contact Manager</title>
+  <script src="/javascripts/jquery.js"></script>
+  <script src="/javascripts/handlebars.js"></script>
+  <script src="/javascripts/contact_manager.js"></script>
+  <link rel='stylesheet' href='/stylesheets/whitespace_reset.css'>
+  <link rel='stylesheet' href='/stylesheets/style.css'>
+</head>
+<body>
+  <header>
+    <h1>Contact Manager</h1>
+  </header>
+  <main>
+    <section data-id='contacts_view'>
+      <div id='top_bar'>
+        <button type='button' data-type='add'>Add Contact</button>
+        <search data-id='search_container'>
+          <input type='text' placeholder='Search'>
+          <div>
+            Search By:
+            <input type='radio' id='search_by_option_1' name='search_by' value='full_name' checked>
+            <label for='search_by_option_1'>Name</label><!--
+         --><input type='radio' id='search_by_option_2' name='search_by' value='tag'><!--
+         --><label for='search_by_option_2'>Tag</label>
+          </div>
+        </search>
+      </div>
+      <div data-id="contacts_container"></div>
+      <div class='hidden' data-id='search_message'>
+        <p>There are no contacts meeting the search criteria <span data-id="search_term"></span>.</p>
+      </div>
+    </section>
+    <section class='hidden' data-id='form_view'></section>
+  </main>
+</body>
+<script type='text/x-handlebars' data-id='contacts_list'>
+  {{#if (at_least_one_contact)}}
+    {{#each contacts}}
+      {{> contact}}
+    {{/each}}
+  {{else}}
+    <div id='no_contacts'>
+      <p>There are no contacts.</p>
+      <button type='button' data-type='add'>Add Contact</button>
+    </div>
+  {{/if}}
+</script>
+
+<script type='text/x-handlebars' data-id='contact' data-handlebars-type='partial'>
+  <div class='contact' data-contact-id='{{id}}'>
+    <h4 data-contact-full-name='{{full_name}}'>{{{full_name}}}</h4>
+    <dl>
+      <dt>Phone Number:</dt>
+      <dd data-contact-phone-number='{{phone_number}}'>{{{phone_number}}}</dd>
+      <dt>Email:</dt>
+      <dd data-contact-email='{{email}}'>{{{email}}}</dd>
+      
+      {{#if (at_least_one_tag)}}
+      <dt>Tags:</dt>
+      <dd data-contact-tags='{{tags}}'>{{{tags}}}</dd>
+      {{/if}}
+    </dl>
+    <div class='button_bar'>
+      <button type='button' data-type='edit'>Edit</button>
+      <button type='button' data-type='delete'>Delete</button>
+    </div>
+  </div>
+</script>
+
+<script type='text/x-handlebars' data-id='contact_form'>
+    <h1><span></span> Contact</h1>
+  {{#if id}}
+    <form action='/api/contacts/{{id}}' method='PUT' data-id='contact_form' novalidate>
+  {{else}}
+    <form action='/api/contacts' method='POST' data-id='contact_form' novalidate>
+  {{/if}}
+      <fieldset>
+        <div>
+          <label for='full_name'>Full name:</label>
+          <input type='text' id='full_name' name='full_name' placeholder='ex: Jessie Smith' value='{{full_name}}' required>
+          <span class='hidden invalid_input_message'>Please enter a valid name.</span>
+        </div>
+
+        <div>
+          <label for='email'>Email address:</label>
+          <input type='email' id='email' name='email' placeholder='ex: name@email.com' value='{{email}}' pattern='.+@.+' required>
+          <span class='hidden invalid_input_message'>Please enter a valid email.</span>
+        </div>
+
+        <div>
+          <label for='phone_number'>Telephone number:</label>
+          <input type='tel' id='phone_number' name='phone_number' placeholder='ex: 12345678901' value='{{phone_number}}' pattern='^\d{11}$' maxlength='11' required>
+          <span class='hidden invalid_input_message'>Please enter a valid phone number.</span>
+        </div>
+
+        <div>
+          <label for='tags'>Tags:</label>
+          <input type='text' id='tags' name='tags' placeholder='ex: work,piano_lessons,salon' value='{{tags}}' pattern='^[^ ,]+(,[^ ,]+)*$'>
+          <span class='hidden invalid_input_message'>Please enter valid comma delimited tags.</span>
+        </div>
+
+        {{#if id}}
+        <input type='hidden' name='id' value='{{id}}'>
+        {{/if}}
+
+        <div class='buttons_container'>
+          <button>Submit</button>
+          <button type='button' data-type='cancel'>Cancel</button>
+        </div>
+      </fieldset>
+    </form>
+</script>
+</html>

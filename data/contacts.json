@@ -1,0 +1,58 @@
+[
+  {
+    "full_name": "Naveed Fida",
+    "phone_number": "12345678901",
+    "email": "nf@example.com",
+    "tags": "work,friend",
+    "id": 1
+  },
+  {
+    "full_name": "Victor Reyes",
+    "phone_number": "09876543210",
+    "email": "vpr@example.com",
+    "tags": "work,friend",
+    "id": 2
+  },
+  {
+    "full_name": "Pete Hanson",
+    "phone_number": "54321098761",
+    "email": "ph@example.com",
+    "tags": "",
+    "id": 3
+  },
+  {
+    "full_name": "Vaati Vidya",
+    "phone_number": "12345678991",
+    "email": "vv@example.com",
+    "tags": "minish,villian",
+    "id": 4
+  },
+  {
+    "full_name": "Skull Kid",
+    "phone_number": "45678941265",
+    "email": "lozmm@example.com",
+    "tags": "mask,villian",
+    "id": 5
+  },
+  {
+    "full_name": "Larry Everyman",
+    "phone_number": "11111111111",
+    "email": "larry@pokexample.com",
+    "tags": "work,gym_leader",
+    "id": 6
+  },
+  {
+    "full_name": "Wayne Letterkenny",
+    "phone_number": "12345978654",
+    "email": "wl@canadaexample.com",
+    "tags": "canada,television",
+    "id": 7
+  },
+  {
+    "full_name": "Gail MoDean",
+    "phone_number": "12345687865",
+    "email": "modean@example.com",
+    "tags": "canada,television",
+    "id": 8
+  }
+]
